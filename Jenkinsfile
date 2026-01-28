@@ -24,10 +24,23 @@ pipeline {
       }
 
     }
+    stage('Setup VirtualEnv') {
+      steps {
+        sh '''
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+        '''
+      }
+
+    }
     stage('RunPython') {
       steps {
-        sh 'python3 --version'
-        sh 'python3 hello.py'
+        sh '''
+          . venv/bin/activate
+          python hello.py
+        '''
       }
     }
     stage('build') {

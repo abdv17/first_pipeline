@@ -1,7 +1,19 @@
 
 pipeline {
-  agent any 
+  agent any
+  environment {
+    APP_ENV = 'ci'
+    BUILD_OWNER = 'Sai'
+  }
+
   stages {
+    stage('print env vars') {
+      steps {
+        echo "APP_ENV is ${APP_ENV}"
+        echo "BUILD_OWNER is ${BUILD_OWNER}"
+      }
+
+    }
     stage('checkout') {
       steps {
         checkout scm

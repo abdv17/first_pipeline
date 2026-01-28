@@ -19,7 +19,7 @@ pipeline {
       steps {
         script {
           def status = sh(script: 'exit 1', returnStatus: true)
-          echo 'command exited with ${status}, but pipeline continues'
+          echo "command exited with ${status}, but pipeline continues"
         }
       }
 

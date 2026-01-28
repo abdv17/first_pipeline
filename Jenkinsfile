@@ -15,6 +15,12 @@ pipeline {
         sh 'ls -la'
       }
     }
+    stage('IntentionalFailure') {
+      steps {
+        sh 'exit 1'
+      }
+
+    }
     stage('build') {
       steps {
         echo 'Build stage running successfully'

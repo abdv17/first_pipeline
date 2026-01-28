@@ -15,9 +15,12 @@ pipeline {
         sh 'ls -la'
       }
     }
-    stage('IntentionalFailure') {
+    stage('ControlledFailure') {
       steps {
-        sh 'exit 1'
+        script {
+          def status = sh(script: 'exit 1', returnStatus: true)
+          echo 'command exited with ${status}, but pipeline continues'
+        }
       }
 
     }

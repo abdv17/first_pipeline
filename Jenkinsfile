@@ -3,10 +3,16 @@ pipeline {
   agent any 
   stages {
     stage('checkout') {
-      echo 'Code checked out successfully'
+      steps {
+        echo 'Code checked out successfully'
+      }
+
     }
     stage('build') {
-      echo 'Build stage running successfully'
+      steps {
+        echo 'Build stage running successfully'
+      }
+
     }
   }
 }

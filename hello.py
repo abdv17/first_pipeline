@@ -1,0 +1,1 @@
+print('Hello from python executing inside Jenkins')

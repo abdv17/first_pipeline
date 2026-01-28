@@ -24,6 +24,12 @@ pipeline {
       }
 
     }
+    stage('RunPython') {
+      steps {
+        sh 'python3 --version'
+        sh 'python3 hello.py'
+      }
+    }
     stage('build') {
       steps {
         echo 'Build stage running successfully'

@@ -1,10 +1,6 @@
 
 pipeline {
   agent any
-  environment {
-    APP_ENV = 'ci'
-    BUILD_OWNER = 'Sai'
-  }
   parameters {
     choice(
             name: 'BROWSER',
@@ -17,6 +13,11 @@ pipeline {
             description: 'Target Environment'
     )
   }
+  environment {
+    APP_ENV = 'ci'
+    BUILD_OWNER = 'Sai'
+  }
+
   stages {
     stage('clean') {
       steps {

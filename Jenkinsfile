@@ -60,8 +60,7 @@ pipeline {
             pytest tests \
             --browser=${BROWSER} \
             --env=${ENV} \
-            --junitxml=reports/test_report.xml \
-            --html=reports/test_report.html
+            --junitxml=reports/test_report.xml --html=reports/test_report.html
           '''
         }
       }

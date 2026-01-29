@@ -5,20 +5,23 @@ pipeline {
     APP_ENV = 'ci'
     BUILD_OWNER = 'Sai'
   }
-
+  parameters {
+    choice(
+            name: 'BROWSER',
+            choices: ['chromium','firefox','webkit'],
+            description: 'Browser to run tests'
+    )
+    choice(
+            name: 'ENV',
+            choices: ['qa','stage','prod'],
+            description: 'Target Environment'
+    )
+  }
   stages {
     stage('clean') {
       steps {
         deleteDir()
       }
-    }
-    stage('print env vars') {
-      steps {
-        echo 'This is env vars section'
-        echo "APP_ENV is ${APP_ENV}"
-        echo "BUILD_OWNER is ${BUILD_OWNER}"
-      }
-
     }
     stage('checkout') {
       steps {
@@ -33,15 +36,7 @@ pipeline {
         sh 'ls -la'
       }
     }
-    stage('ControlledFailure') {
-      steps {
-        script {
-          def status = sh(script: 'exit 1', returnStatus: true)
-          echo "command exited with ${status}, but pipeline continues"
-        }
-      }
 
-    }
     stage('Setup VirtualEnv') {
       steps {
         sh '''
@@ -54,16 +49,6 @@ pipeline {
       }
 
     }
-    stage('RunPython') {
-      steps {
-        // python hello.py
-        // pytest tests/test_login.py --html=reports/test_report.html --junitxml=reports/test_report.xml
-        sh '''
-          . venv/bin/activate
-
-        '''
-      }
-    }
 
     stage('Run Tests') {
 
@@ -71,7 +56,11 @@ pipeline {
         catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
           sh '''
             . venv/bin/activate
-            pytest tests --junitxml=reports/test_report.xml --html=reports/test_report.html
+            pytest tests \
+            --browser=${BROWSER} \
+            --env=${ENV} \
+            --junitxml=reports/test_report.xml \
+            --html=reports/test_report.html
           '''
         }
       }

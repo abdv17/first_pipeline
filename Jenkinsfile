@@ -54,7 +54,7 @@ pipeline {
         sh '''
           . venv/bin/activate
           python hello.py
-          pytest tests/test_login.py
+          pytest tests/test_login.py --html=reports\test_report.html --junitxml=reports\test_report.xml
         '''
       }
     }
@@ -63,6 +63,14 @@ pipeline {
         echo 'Build stage running successfully'
       }
 
+    }
+    stage('Archive Artifacts') {
+      steps {
+        // Archive xml file as Jenkins Test Report
+        junit 'reports/**/*.xml'
+        //Archive html reports
+        archiveArtifacts artifacts: 'reports/**/*.html', fingerprint: true
+      }
     }
   }
 }

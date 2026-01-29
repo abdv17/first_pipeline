@@ -1,68 +1,29 @@
-
 pipeline {
-  agent any
-  environment {
-    APP_ENV = 'ci'
-    BUILD_OWNER = 'Sai'
+  agent {
+    docker {
+      image 'mcr.microsoft.com/playwright/python:v1.45.0-jammy' // match your Playwright version
+      args '--ipc=host' // optional, helps with Chrome stability under heavy parallelism
+    }
   }
-
   stages {
-    stage('print env vars') {
-      steps {
-        echo "APP_ENV is ${APP_ENV}"
-        echo "BUILD_OWNER is ${BUILD_OWNER}"
-      }
-
-    }
-    stage('checkout') {
-      steps {
-        checkout scm
-        echo 'Code checked out successfully'
-      }
-
-    }
-    stage('workspaceproof') {
-      steps {
-        sh 'pwd'
-        sh 'ls -la'
-      }
-    }
-    stage('ControlledFailure') {
-      steps {
-        script {
-          def status = sh(script: 'exit 1', returnStatus: true)
-          echo "command exited with ${status}, but pipeline continues"
-        }
-      }
-
-    }
-    stage('Setup VirtualEnv') {
+    stage('Install & Test (Python Playwright)') {
       steps {
         sh '''
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt
-            playwright install
-        '''
-      }
-
-    }
-    stage('RunPython') {
-      steps {
-        sh '''
-          . venv/bin/activate
-          pip list
-          python hello.py
-          pytest tests/test_login.py
+          python --version
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          # Install Playwright browsers (already present in this image, but safe to ensure)
+          python -m playwright install
+          # Run tests
+          pytest -q --maxfail=1 --disable-warnings --junitxml=reports/junit.xml
         '''
       }
     }
-    stage('build') {
-      steps {
-        echo 'Build stage running successfully'
-      }
-
+  }
+  post {
+    always {
+      junit 'reports/junit.xml'
+      archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
     }
   }
 }

@@ -4,6 +4,7 @@ pipeline {
   environment {
     APP_ENV = 'ci'
     BUILD_OWNER = 'Sai'
+    echo 'This is env vars section'
   }
 
   stages {

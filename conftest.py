@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 
 
 def pytest_addoption(parser):
-    parser.addoption("--browser", action="store", default="chrome")
+    parser.addoption("--ui-browser", action="store", default="chrome")
     parser.addoption("--env", action="store", default="qa")
 
 def browser_name(request):

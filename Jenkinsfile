@@ -113,6 +113,7 @@ pipeline {
   }
   post {
     always {
+      archiveArtifacts artifacts: 'reports/*.xml', allowEmptyArchive: true
       archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
     }
     unstable {

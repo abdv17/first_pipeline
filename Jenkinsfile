@@ -89,16 +89,13 @@ pipeline {
         junit 'reports/*.xml'
       }
     }
-
-    post {
-      always {
-        archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
-      }
-      unstable {
-        echo 'Some test failed. Please check report'
-      }
+  }
+  post {
+    always {
+      archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
     }
-
-
+    unstable {
+      echo 'Some test failed. Please check report'
+    }
   }
 }

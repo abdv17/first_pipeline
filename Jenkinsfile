@@ -54,7 +54,7 @@ pipeline {
         sh '''
           . venv/bin/activate
           python hello.py
-          pytest tests/test_login.py --html=reports\test_report.html --junitxml=reports\test_report.xml
+          pytest tests/test_login.py --html=reports/test_report.html --junitxml=reports/test_report.xml
         '''
       }
     }

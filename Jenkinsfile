@@ -52,6 +52,7 @@ pipeline {
       steps {
         sh '''
           . venv/bin/activate
+          pip list
           python hello.py
           pytest tests/test_login.py
         '''

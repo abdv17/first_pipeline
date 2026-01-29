@@ -77,5 +77,10 @@ pipeline {
         archiveArtifacts artifacts: 'reports/**/*.html', fingerprint: true
       }
     }
+    stage('Publish Test Results') {
+      steps {
+        junit 'reports/*.xml'
+      }
+    }
   }
 }

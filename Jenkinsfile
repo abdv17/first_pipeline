@@ -4,12 +4,12 @@ pipeline {
   environment {
     APP_ENV = 'ci'
     BUILD_OWNER = 'Sai'
-    echo 'This is env vars section'
   }
 
   stages {
     stage('print env vars') {
       steps {
+        echo 'This is env vars section'
         echo "APP_ENV is ${APP_ENV}"
         echo "BUILD_OWNER is ${BUILD_OWNER}"
       }

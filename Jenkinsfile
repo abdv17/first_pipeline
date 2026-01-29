@@ -56,13 +56,27 @@ pipeline {
     }
     stage('RunPython') {
       steps {
+        // python hello.py
+        // pytest tests/test_login.py --html=reports/test_report.html --junitxml=reports/test_report.xml
         sh '''
           . venv/bin/activate
-          python hello.py
-          pytest tests/test_login.py --html=reports/test_report.html --junitxml=reports/test_report.xml
+
         '''
       }
     }
+
+    stage('Run Tests') {
+
+      steps {
+        catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
+          sh '''
+            . venv/bin/activate
+            pytest tests --junitxml=reports/test_report.xml --html=reports/test_report.html
+          '''
+        }
+      }
+    }
+
     stage('build') {
       steps {
         echo 'Build stage running successfully'
@@ -82,5 +96,7 @@ pipeline {
         junit 'reports/*.xml'
       }
     }
+
+
   }
 }

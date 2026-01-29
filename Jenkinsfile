@@ -1,18 +1,18 @@
 
 pipeline {
   agent any
-  parameters {
-    choice(
-            name: 'BROWSER',
-            choices: ['chromium','firefox','webkit'],
-            description: 'Browser to run tests'
-    )
-    choice(
-            name: 'ENV',
-            choices: ['qa','stage','prod'],
-            description: 'Target Environment'
-    )
-  }
+  //parameters {
+  //  choice(
+  //          name: 'BROWSER',
+  //          choices: ['chromium','firefox','webkit'],
+  //          description: 'Browser to run tests'
+  //  )
+  //  choice(
+  //          name: 'ENV',
+  //          choices: ['qa','stage','prod'],
+  //          description: 'Target Environment'
+  //  )
+  //}
   environment {
     APP_ENV = 'ci'
     BUILD_OWNER = 'Sai'

@@ -72,6 +72,7 @@ pipeline {
           steps {
             echo 'Running tests on Chromium'
             sh '''
+                . venv/bin/activate
                 pytest tests \
                 --ui-browser=chromium \
                 --env=${ENV} \
@@ -84,6 +85,7 @@ pipeline {
           steps {
             echo 'Running tests on Firefox'
             sh '''
+                . venv/bin/activate
                 pytest tests \
                 --ui-browser=firefox \
                 --env=${ENV} \

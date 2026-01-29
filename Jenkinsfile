@@ -51,19 +51,49 @@ pipeline {
 
     }
 
-    stage('Run Tests') {
+    //stage('Run Tests') {
+    //
+    //  steps {
+    //    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
+    //      sh '''
+    //        . venv/bin/activate
+    //        pytest tests \
+    //        --ui-browser=${BROWSER} \
+    //        --env=${ENV} \
+    //        --junitxml=reports/test_report.xml --html=reports/test_report.html
+    //      '''
+    //    }
+    //  }
+    //}
 
-      steps {
-        catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
-          sh '''
-            . venv/bin/activate
-            pytest tests \
-            --ui-browser=${BROWSER} \
-            --env=${ENV} \
-            --junitxml=reports/test_report.xml --html=reports/test_report.html
-          '''
+    stage('Paralle Browser Execution') {
+      parallel {
+        stage('chromium') {
+          steps {
+            echo 'Running tests on Chromium'
+            sh '''
+                pytest tests \
+                --ui-browser=chromium \
+                --env=${ENV} \
+                --junitxml=reports/test_report.xml --html=reports/test_report.html
+            '''
+          }
+
+        }
+        stage('chromium') {
+          steps {
+            echo 'Running tests on Firefox'
+            sh '''
+                pytest tests \
+                --ui-browser=firefox \
+                --env=${ENV} \
+                --junitxml=reports/test_report.xml --html=reports/test_report.html
+            '''
+          }
+
         }
       }
+
     }
 
     stage('build') {

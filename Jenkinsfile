@@ -7,6 +7,11 @@ pipeline {
   }
 
   stages {
+    stage('clean') {
+      steps {
+        deleteDir()
+      }
+    }
     stage('print env vars') {
       steps {
         echo 'This is env vars section'

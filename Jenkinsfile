@@ -52,6 +52,7 @@ pipeline {
         sh '''
           . venv/bin/activate
           python hello.py
+          pytest tests/test_login.py
         '''
       }
     }

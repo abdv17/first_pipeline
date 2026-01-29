@@ -83,17 +83,19 @@ pipeline {
       }
 
     }
-    stage('Archive Artifacts') {
-      steps {
-        // Archive xml file as Jenkins Test Report
-        junit 'reports/**/*.xml'
-        //Archive html reports
-        archiveArtifacts artifacts: 'reports/**/*.html', fingerprint: true
-      }
-    }
+
     stage('Publish Test Results') {
       steps {
         junit 'reports/*.xml'
+      }
+    }
+
+    post {
+      always {
+        archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
+      }
+      unstable {
+        echo 'Some test failed. Please check report'
       }
     }
 

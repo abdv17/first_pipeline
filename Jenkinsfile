@@ -80,7 +80,7 @@ pipeline {
           }
 
         }
-        stage('chromium') {
+        stage('firefox') {
           steps {
             echo 'Running tests on Firefox'
             sh '''

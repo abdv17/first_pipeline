@@ -75,7 +75,7 @@ pipeline {
                 pytest tests \
                 --ui-browser=chromium \
                 --env=${ENV} \
-                --junitxml=reports/test_report.xml --html=reports/test_report.html
+                --junitxml=reports/chromium.xml --html=reports/test_report.html
             '''
           }
 
@@ -87,7 +87,7 @@ pipeline {
                 pytest tests \
                 --ui-browser=firefox \
                 --env=${ENV} \
-                --junitxml=reports/test_report.xml --html=reports/test_report.html
+                --junitxml=reports/firefox.xml --html=reports/test_report.html
             '''
           }
 

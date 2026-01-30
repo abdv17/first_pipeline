@@ -121,6 +121,7 @@ pipeline {
     always {
       archiveArtifacts artifacts: 'reports/*.xml', allowEmptyArchive: true
       archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
+      archiveArtifacts artifacts: 'screenshots/*.png', allowEmptyArchive: true
     }
     unstable {
       echo 'Some test failed. Please check report'

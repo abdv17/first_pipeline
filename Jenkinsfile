@@ -70,27 +70,33 @@ pipeline {
       parallel {
         stage('chromium') {
           steps {
-            echo 'Running tests on Chromium'
-            sh '''
+            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
+              echo 'Running tests on Chromium'
+              sh '''
                 . venv/bin/activate
                 pytest tests \
                 --browser=chromium \
                 --env=${ENV} \
                 --junitxml=reports/chromium.xml --html=reports/test_report.html
-            '''
+                '''
+            }
+
           }
 
         }
         stage('firefox') {
           steps {
-            echo 'Running tests on Firefox'
-            sh '''
+            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
+              echo 'Running tests on Firefox'
+              sh '''
                 . venv/bin/activate
                 pytest tests \
                 --browser=firefox \
                 --env=${ENV} \
                 --junitxml=reports/firefox.xml --html=reports/test_report.html
-            '''
+                '''
+            }
+
           }
 
         }

@@ -74,7 +74,7 @@ pipeline {
             sh '''
                 . venv/bin/activate
                 pytest tests \
-                --ui-browser=chromium \
+                --browser=chromium \
                 --env=${ENV} \
                 --junitxml=reports/chromium.xml --html=reports/test_report.html
             '''
@@ -87,7 +87,7 @@ pipeline {
             sh '''
                 . venv/bin/activate
                 pytest tests \
-                --ui-browser=firefox \
+                --browser=firefox \
                 --env=${ENV} \
                 --junitxml=reports/firefox.xml --html=reports/test_report.html
             '''

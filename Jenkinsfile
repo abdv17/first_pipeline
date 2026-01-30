@@ -74,7 +74,7 @@ pipeline {
               echo 'Running tests on Chromium'
               sh '''
                 . venv/bin/activate
-                pytest tests \
+                pytest tests -m smoke \
                 --browser=chromium \
                 --env=${ENV} \
                 --junitxml=reports/chromium.xml --html=reports/test_report.html

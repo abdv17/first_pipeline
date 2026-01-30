@@ -1,5 +1,23 @@
+import os
+from datetime import datetime
+
 import pytest
 from playwright.sync_api import sync_playwright
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+
+    if rep.when == "call" and rep.failed:
+        page = item.funcargs.get("page", None)
+        if page:
+            os.makedirs("screenshots", exist_ok=True)
+            timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+            file_name = f"screenshots/{item.name}_{timestamp}.png"
+            page.screenshot(path=file_name,full_page=True)
+
 
 
 def pytest_addoption(parser):

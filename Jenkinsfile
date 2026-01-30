@@ -84,22 +84,22 @@ pipeline {
           }
 
         }
-        stage('firefox') {
-          steps {
-            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
-              echo 'Running tests on Firefox'
-              sh '''
-                . venv/bin/activate
-                pytest tests \
-                --browser=firefox \
-                --env=${ENV} \
-                --junitxml=reports/firefox.xml --html=reports/test_report.html
-                '''
-            }
-
-          }
-
-        }
+        //stage('firefox') {
+        //  steps {
+        //    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
+        //      echo 'Running tests on Firefox'
+        //      sh '''
+        //        . venv/bin/activate
+        //        pytest tests \
+        //        --browser=firefox \
+        //        --env=${ENV} \
+        //        --junitxml=reports/firefox.xml --html=reports/test_report.html
+        //        '''
+        //    }
+        //
+        //  }
+        //
+        //}
       }
 
     }

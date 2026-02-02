@@ -1,9 +1,12 @@
 import pytest
 from playwright.sync_api import sync_playwright
 
+from pages.login_page import LoginPage
 
-def test_login_username_password(page):
-    page.goto("https://opensource-demo.orangehrmlive.com",wait_until="domcontentloaded")
-    page.wait_for_selector("input[name=username]")
-    assert page.get_by_placeholder('Username').is_visible()
-    assert page.get_by_placeholder('Password').is_visible()
+
+@pytest.mark.smoke
+def test_valid_login(page):
+    login = LoginPage(page)
+    login.open()
+    login.login('Adminnn', 'admin123')
+    assert 'dashboard' in page.url.lower()

@@ -11,7 +11,7 @@ def pytest_runtest_makereport(item, call):
     rep = outcome.get_result()
 
     if rep.when == "call" and rep.failed:
-        page = item.funcargs.get("page", None)
+        page = item.funcargs.get("page")
         if page:
             os.makedirs("screenshots", exist_ok=True)
             timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")

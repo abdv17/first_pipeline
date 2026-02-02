@@ -1,7 +1,12 @@
 import pytest
 from playwright.sync_api import sync_playwright
 
+from pages.login_page import LoginPage
+
+
 @pytest.mark.smoke
-def test_login(page):
-    page.goto("https://opensource-demo.orangehrmlive.com")
-    assert page.title() == "OrangeHRM"
+def test_valid_login(page):
+    login = LoginPage(page)
+    login.open()
+    login.login('Admin', 'admin123')
+    assert 'dashboard' in page.url.lower()

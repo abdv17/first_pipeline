@@ -122,6 +122,14 @@ pipeline {
       archiveArtifacts artifacts: 'reports/*.xml', allowEmptyArchive: true
       archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
       archiveArtifacts artifacts: 'screenshots/*.png', allowEmptyArchive: true
+      publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: 'test_report.html',
+                    reportName: 'Pytest HTML Report'
+      ])
     }
     unstable {
       echo 'Some test failed. Please check report'

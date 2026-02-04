@@ -77,7 +77,7 @@ pipeline {
                 pytest tests -m smoke \
                 --browser=chromium \
                 --env=${ENV} \
-                --junitxml=reports/chromium.xml --html=reports/test_report.html
+                --junitxml=reports/chromium.xml --html=reports/test_report.html --self-contained-html
                 '''
             }
 

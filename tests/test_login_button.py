@@ -8,4 +8,4 @@ from pages.login_page import LoginPage
 def test_login_username_password(page):
     login = LoginPage(page)
     login.open()
-    assert login.login_btn.is_visible()
+    assert login.is_login_visible()

@@ -16,3 +16,9 @@ class LoginPage:
         self.user_name.fill(user)
         self.password.fill(pwd)
         self.login_btn.click()
+
+    def is_login_visible(self):
+        return self.login_btn.is_visible()
+
+    def is_login_error(self):
+        return self.error_msg.is_visible()

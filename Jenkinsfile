@@ -72,7 +72,7 @@ pipeline {
                 pytest tests -m smoke \
                 --browser=chromium \
                 --env=${ENV} \
-                --junitxml=reports/chromium.xml --html=reports/test_report.html --self-contained-html
+                --junitxml=reports/chromium.xml --alluredir=allure-results
                 '''
             }
 
@@ -115,16 +115,21 @@ pipeline {
   post {
     always {
       archiveArtifacts artifacts: 'reports/*.xml', allowEmptyArchive: true
-      archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
+//       archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
       archiveArtifacts artifacts: 'screenshots/*.png', allowEmptyArchive: true
-      publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'reports',
-                    reportFiles: 'test_report.html',
-                    reportName: 'Pytest HTML Report'
-      ])
+//       publishHTML(target: [
+//                     allowMissing: false,
+//                     alwaysLinkToLastBuild: true,
+//                     keepAll: true,
+//                     reportDir: 'reports',
+//                     reportFiles: 'test_report.html',
+//                     reportName: 'Pytest HTML Report'
+//       ])
+     allure([
+            includeProperties: false,
+            jdk: '',
+            results:[[path: 'allure-results']]
+     ])
     }
     unstable {
       echo 'Some test failed. Please check report'

@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 
 import pytest
+import allure
 from playwright.sync_api import sync_playwright
 from pytest_html import extras
 
@@ -13,20 +14,13 @@ def pytest_runtest_makereport(item, call):
     rep = outcome.get_result()
 
     if rep.when == "call" and rep.failed:
-        page = item.funcargs.get("page")
+        page = item.funcargs.get("page", None)
         if page:
-            os.makedirs("screenshots", exist_ok=True)
-            timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-            file_name = f"{item.name}_{timestamp}.png"
-            screenshot_path = os.path.join("screenshots", file_name)
-
-            page.screenshot(path=screenshot_path,full_page=True)
-            with open(screenshot_path, "rb") as image_file:
-                image_base64 = base64.b64encode(image_file.read()).decode()
-
-            extra = getattr(rep, "extra", [])
-            extra.append(extras.image(image_base64, mime_type="image/png"))
-            rep.extra = extra
+            allure.attach(
+                page.screenshot(),
+                name="Failure Screenshot",
+                attachment_type=allure.attachment_type.PNG
+            )
 
 
 

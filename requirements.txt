@@ -2,3 +2,4 @@ requests
 pytest-playwright
 pytest-html
 pytest
+allure-pytest

@@ -12,7 +12,7 @@ class LoginPage:
         self.page.goto("https://opensource-demo.orangehrmlive.com", wait_until="domcontentloaded")
 
     def login(self, user, pwd):
-        self.page.wait_for_selector('button[type="submit"]')
+        # self.page.wait_for_selector('button[type="submit"]')
         self.user_name.fill(user)
         self.password.fill(pwd)
         self.login_btn.click()

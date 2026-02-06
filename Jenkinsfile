@@ -68,7 +68,7 @@ pipeline {
             catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
               echo 'Running tests on Chromium'
               bat '''
-                . venv/bin/activate
+                venv\\Scripts\\activate
                 pytest tests -m smoke \
                 --browser=chromium \
                 --env=${ENV} \

@@ -8,4 +8,4 @@ from pages.login_page import LoginPage
 def test_forgot_password(page):
     login = LoginPage(page)
     login.open()
-    assert page.get_by_text("Forgot your password?", exact=True).is_visible()
+    assert page.get_by_text("Forgot your password", exact=True).is_visible()

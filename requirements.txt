@@ -1,6 +1,7 @@
 requests
 pytest-playwright
 pytest-html
-pytest
+pytest>=7.0.0
 allure-pytest
 pytest-rerunfailures
+pytest-retry

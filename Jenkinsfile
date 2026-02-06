@@ -71,9 +71,8 @@ pipeline {
                 venv\\Scripts\\activate
                 pytest tests -m smoke \
                 --browser=chromium \
-                --env=${ENV} \
-                --retry=2 --retry-delay=1 \
-                --junitxml=reports/chromium.xml --alluredir=allure-results
+                --retries=2 --retry-delay=1 \
+                --alluredir=allure-results
                 '''
             }
 

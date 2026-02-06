@@ -35,7 +35,7 @@ pipeline {
 
     stage('Setup VirtualEnv') {
       steps {
-        sh '''
+        bat '''
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip
@@ -67,7 +67,7 @@ pipeline {
           steps {
             catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
               echo 'Running tests on Chromium'
-              sh '''
+              bat '''
                 . venv/bin/activate
                 pytest tests -m smoke \
                 --browser=chromium \

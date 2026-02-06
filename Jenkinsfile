@@ -31,12 +31,7 @@ pipeline {
       }
 
     }
-    stage('workspaceproof') {
-      steps {
-        sh 'pwd'
-        sh 'ls -la'
-      }
-    }
+
 
     stage('Setup VirtualEnv') {
       steps {

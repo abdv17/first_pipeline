@@ -125,7 +125,7 @@ pipeline {
 //                     reportFiles: 'test_report.html',
 //                     reportName: 'Pytest HTML Report'
 //       ])
-     allure([
+      allure([
             includeProperties: false,
             jdk: '',
             results:[[path: 'allure-results']]

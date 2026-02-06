@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 from pages.login_page import LoginPage
 
 
-@pytest.mark.smoke
+@pytest.mark.regression
 def test_valid_login(page):
     login = LoginPage(page)
     login.open()

@@ -9,5 +9,4 @@ def test_valid_login(page):
     login = LoginPage(page)
     login.open()
     login.login('Admin', 'admin123')
-    # page.wait_for_selector('button[type="submit"]')
     assert 'dashboard' in page.url.lower()

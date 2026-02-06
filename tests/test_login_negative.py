@@ -10,4 +10,4 @@ def test_valid_login(page):
     login.open()
     login.login('Adminnn', 'admin123')
     page.wait_for_load_state('domcontentloaded')
-    assert 'dashboard' in page.url.lower()
+    assert login.error_msg.is_visible()

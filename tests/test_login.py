@@ -10,5 +10,5 @@ def test_valid_login(page):
     login = LoginPage(page)
     dashboard = DashboardPage(page)
     login.open()
-    login.login('Admin', 'admin123a')
+    login.login('Admin', 'admin123')
     assert dashboard.is_dashboard()

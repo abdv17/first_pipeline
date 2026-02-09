@@ -61,7 +61,7 @@ pipeline {
     //  }
     //}
 
-    stage('Paralle Browser Execution') {
+    stage('Parallel Browser Execution') {
       parallel {
         stage('chromium') {
           steps {
@@ -79,22 +79,22 @@ pipeline {
           }
 
         }
-        //stage('firefox') {
-        //  steps {
-        //    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
-        //      echo 'Running tests on Firefox'
-        //      sh '''
-        //        . venv/bin/activate
-        //        pytest tests \
-        //        --browser=firefox \
-        //        --env=${ENV} \
-        //        --junitxml=reports/firefox.xml --html=reports/test_report.html
-        //        '''
-        //    }
-        //
-        //  }
-        //
-        //}
+        stage('firefox') {
+          steps {
+            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
+              echo 'Running tests on Firefox'
+              bat '''
+                venv\\Scripts\\activate
+                pytest tests -m smoke \
+                --browser=firefox \
+                --retries=2 --retry-delay=1 \
+                --alluredir=allure-results
+                '''
+            }
+
+          }
+
+        }
       }
 
     }
